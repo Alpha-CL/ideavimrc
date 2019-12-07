@@ -1,211 +1,188 @@
-" M->cmd, A->option, C->control
-" <ESC> - escape, <BS> - backspace, <CR> - return
+" ----------------------- Basic Setting Start ！-------------------------------
 
-" leader
-let mapleader = " "
 
-" 启用vim surround功能
-set surround
-" 启用multi cursor
-set multiple-cursors
-" 显示行号
-set nu
-" 显示相对行号
-set rnu
-" 高亮搜索
-set hlsearch
-" 自动定位到输入中的字符串，不需要回车搜索
-set incsearch
-" 显示当前的模式
-set showmode
-" 共享系统粘贴板
-set clipboard=unnamed
-" 搜索时智能匹配大小写
-set ignorecase smartcase
 
-" Insert
-inoremap jk <Esc>
-" Normal
-nnoremap dd ddzz
-" Visual
-vnoremap d dzz
+set nocompatible           		        " 不与 Vi 兼容（采用 Vim 自己的操作命令）
 
-" Normal + Visual
-noremap # #zz
-noremap * *zz
-noremap w wzz
-noremap W Wzz
-noremap e ezz
-noremap E Ezz
-noremap b bzz
-noremap B Bzz
-noremap H Hzz
-noremap L Lzz
-noremap 0 0zz
-noremap $ $zz
-noremap ^ ^zz
-noremap j jzz
-noremap k kzz
-noremap G Gzz
-noremap u uzz
-noremap ( (zz
-noremap ) )zz
-noremap { {zz
-noremap } }zz
-noremap [{ [{zz
-noremap ]} ]}zz
-noremap gd gdzz
-noremap <C-O> <ESC>:action Back<CR>
-noremap <C-I> <ESC>:action Forward<CR>
-noremap <C-D> <C-D>zz
-noremap <C-U> <C-U>zz
-" E和R是为了保持与Chrome中的SurfingKeys的键位一致
-noremap E gT
-noremap R gt
-noremap J <ESC>:action EditorJoinLines<CR>
 
-" 个人习惯
-noremap <leader>` <ESC>:action SelectInProjectView<CR>
 
-" Leader key relevant
-" quit
-noremap <leader>q :wq<CR>
-" w
-"noremap <leader>w <ESC>:action<CR>
-" error description
-noremap <leader>e <ESC>:action ShowErrorDescription<CR>
-" return
-noremap <leader>r <ESC>:action Rerun<CR>
-" Windows或者MacOS的快捷键都与t相关, 所以选择t作为键
-noremap <leader>t <ESC>:action Refactorings.QuickListPopupAction<CR>
-" y
-"noremap <leader>y <ESC>:action <CR>
-" usage
-noremap <leader>u <ESC>:action ShowUsages<CR>
-" import
-noremap <leader>i <ESC>:action Maven.Reimport<CR>
-" open file path
-noremap <leader>o <ESC>:action ShowFilePath<CR>
-" show projects
-noremap <leader>p <ESC>:action ManageRecentProjects<CR>
+syntax on                  		        " 语法高亮
+set clipboard=unnamed                   " 共享剪切板
 
-" ace jump
-noremap <leader>a <ESC>:action emacsIDEAs.AceJumpWord<CR>
-" structure
-noremap <leader>s <ESC>:action FileStructurePopup<CR>
-" debug option
-noremap <leader>d <ESC>:action ChooseDebugConfiguration<CR>
-" 同样也是debug，因为d已经被ChooseDebugConfiguration占领, 所以就放在了d键隔壁.
-noremap <leader>f <ESC>:action DebugClass<CR>
-" g
-noremap <leader>g <ESC>:action Generate<CR>
-" hide all
-noremap <leader>h <ESC>:action HideAllWindows<CR>
-" jump to next error
-noremap <leader>j <ESC>:action GotoNextError<CR>
-" jump to previous error，就近原则
-noremap <leader>k <ESC>:action GotoPreviousError<CR>
-" light up
-noremap <leader>l <ESC>:action HighlightUsagesInFile<CR>
-" 粘贴最近复制寄存器
-noremap <leader>; "0p
+set mouse=a                             " 激活鼠标
+set scrolloff=10                        " 在光标接近底端或顶端时，自动下滚或上滚
 
-" 本行皆为debug所用
-" resume - z
-noremap <leader>z <ESC>:action Resume<CR>
-" step over
-noremap <leader>x <ESC>:action StepOver<CR>
-" step into
-noremap <leader>c <ESC>:action SmartStepInto<CR>
-" evaluate expression - v
-noremap <leader>v <ESC>:action EvaluateExpression<CR>
-" breakpoints
-noremap <leader>b <ESC>:action ViewBreakpoints<CR>
-" 因为属于breakpoint范畴的功能, 所以就选择了b和m的隔壁
-noremap <leader>n <ESC>:action ToggleLineBreakpoint<CR>
-" mute breakpoints
-noremap <leader>m <ESC>:action XDebugger.MuteBreakpoints<CR>
 
-" g key relevant
-"
-" q
-"noremap gq <ESC>:action <CR>
-" switcher
-noremap gw <ESC>:action RecentFiles<CR>
-" e
-"noremap ge <ESC>:action <CR>
-" r
-"noremap gr <ESC>:action <CR>
-" translator(third party plugin)
-noremap gt <ESC>:action $EditorTranslateAction<CR>
-" y
-noremap gy <ESC>:action CopyReference<CR>
-" u
-"noremap gu <ESC>:action <CR>
-" intention
-noremap gi <ESC>:action ShowIntentionActions<CR>
-" o
-"noremap go <ESC>:action <CR>
-" param info
-noremap gp <ESC>:action ParameterInfo<CR>
 
-" a
-"noremap ga <ESC>:action emacsIDEAs.AceJump<CR>
-" goto source
-noremap gs <ESC>:action GotoImplementation<CR>
-" goto declaration
-noremap gd <ESC>:action GotoDeclaration<CR>
-" goto file
-noremap gf <ESC>:action GotoFile<CR>
-" g
-"noremap gg <ESC>:action MUST_NOT_BE_CHANGED!!!<CR>
-" hierarchy
-noremap ghc <ESC>:action CallHierarchy<CR>
-noremap ght <ESC>:action TypeHierarchy<CR>
-noremap ghm <ESC>:action MethodHierarchy<CR>
-" j analyze data flow in
-noremap gj <ESC>:action SliceBackward<CR>
-" k analyze data flow out
-noremap gk <ESC>:action SliceForward<CR>
-" l
-"noremap gl <ESC>:action <CR>
+set showmode                            " 底部展示模式
 
-" z
-"noremap gz <ESC>:action <CR>
-" close all but this
-noremap gx <ESC>:action CloseAllEditorsButActive<CR>
-" compile
-noremap gc <ESC>:action CompileDirty<CR>
-" v
-"noremap gv <ESC>:action <CR>
-" b
-noremap gb <ESC>:action FindBugs.CurrentFileAction<CR>
-" goto class
-noremap gn <ESC>:action GotoClass<CR>
-" goto method
-noremap gm <ESC>:action GotoSymbol<CR>
+set t_Co=256                            " 设置使用颜色
 
-" \ also works
-"noremap \q <ESC>:action <CR>
-" refresh
-noremap \r <ESC>:source ~/.ideavimrc<CR>
-" git flow
-noremap \[ <ESC>:action Gitflow.OpenGitflowPopup<CR>
-" Vcs
-noremap \] <ESC>:action Vcs.QuickListPopupAction<CR>
 
-" global find
-noremap g/ <ESC>:action FindInPath<CR>
-" gloaal replace
-noremap g' <ESC>:action ReplaceInPath<CR>
-" find
-noremap / <ESC>:action Find<CR>
-" replace
-noremap ' <ESC>:action Replace<CR>
-" previous method
-noremap [[ <ESC>:action MethodUp<CR>
-" next method
-noremap ]] <ESC>:action MethodDown<CR>
 
-" multiple cursors
-map <A-M>  <A-N>
+set encoding=utf-8                      " 设置编码
+language messages zh_CN.utf-8           " 解决consle输出乱码
+
+
+
+source $VIMRUNTIME/delmenu.vim          " 解决菜单乱码
+source $VIMRUNTIME/menu.vim             " 解决菜单乱码
+
+
+
+filetype plugin indent on  		        " 根据检测到的文件类型加载插件
+
+
+
+set helplang=cn                         " 设置帮助信息
+set ruler                               " 显示标尺，就是在右下角显示光标位置
+
+
+
+" ----------------------- Basic Setting End ！---------------------------------
+
+
+
+
+" ----------------------- Cover Setting End ！---------------------------------
+
+
+
+set cmdheight=2                         " 设置命令行的高度
+set textwidth=80			            " 一行显示多少个字符
+set wrap				                " 自动折行,太长的行分成几行显示
+
+
+set wrapmargin=2			            " 折行处与编辑窗口的右边缘之间空出的字符数
+set scrolloff=5				            " 垂直滚动时，光标距离顶部/底部的位置
+set sidescrolloff=15			        " 水平滚动时，光标距离行首或行尾的位置
+
+
+
+set browsedir=buffer                    " 设定文件浏览器目录为当前目录
+set autochdir                           " 自动切换当前目录为当前文件所在的目录
+set autoread                            " 自动重新加载外部修改内容
+
+
+set noerrorbells			            " 出错时，不要发出响声
+set visualbell				            " 出错时，发出视觉提示
+
+
+set history=1000			            " Vim 需要记住多少次历史操作
+
+
+
+" ----------------------- Cover Setting End ！---------------------------------
+
+
+
+
+" ----------------------- Search Setting Start ！------------------------
+
+
+
+set incsearch              		        " 用/或？搜索时突出显示
+set hlsearch             		        " 保持匹配突出显示
+
+
+set ignorecase                          " 搜索时大小写不敏感
+set smartcase                           " 如果有一个大写字母，切换大小写敏感查找
+set wildmenu                            " vim 自身命令行模式智能补全
+
+
+" 当光标一段时间保持不动了，就禁用高亮
+autocmd cursorhold * set nohlsearch
+
+
+" 当输入查找命令时，再启用高亮
+noremap n :set hlsearch<cr>n
+noremap N :set hlsearch<cr>N
+noremap / :set hlsearch<cr>/
+noremap ? :set hlsearch<cr>?
+noremap * *:set hlsearch<cr>
+
+
+
+" ----------------------- Search Setting End ！------------------------
+
+
+
+
+" ----------------------- Edit Setting Start ！------------------------
+
+
+
+set number                   		    " 显示行号
+set relativenumber			            " 显示相对行号
+
+
+
+set cursorline                          " 高亮显示当前 - 行
+
+hi CursorLine   cterm=NONE ctermbg=237 ctermfg=NONE guibg=NONE guifg=NONE
+
+set cursorcolumn                        " 高亮显示当前 - 列
+
+hi CursorColumn cterm=NONE ctermbg=237 ctermfg=NONE guibg=NONE guifg=NONE
+
+
+
+set autoindent             		        " 按前一行缩进
+set expandtab              		        " 使用空格而不是制表符
+
+
+set softtabstop =4         		        " Tab 键 缩进 4个空格
+set shiftwidth  =4         		        " >> tab 缩紧 4个空格
+set shiftround             		        " >> 缩进到'shiftwidth'的下一个倍数
+
+
+
+" ----------------------- Edit Setting Start ！--------------------------------
+
+
+
+
+" ----------------------- Otner Setting Start ！-------------------------------
+
+
+
+set backspace   =indent,eol,start       " 按照您的预期使退格工作
+set hidden                 		        " 在缓冲区之间切换而不必先保存
+set laststatus  =2         		        " 始终显示状态行
+set display     =lastline  		        " 尽可能多地显示最后一行
+
+
+set showmode               		        " 在命令行中显示当前模式
+set showcmd                		        " 当需要更多键时，显示已键入的键
+
+
+set ttyfast                		        " 更快地重绘
+set lazyredraw             		        " 仅在必要时重绘
+
+
+set splitbelow             		        " 打开当前窗口下方的新窗口
+set splitright             		        " 在当前窗口右侧打开新窗口
+
+
+set cursorline             		        " 快速查找当前行
+set wrapscan               		        " 搜索环绕文件末尾
+set report      =0         		        " 始终报告更改的行
+set synmaxcol   =200       		        " 仅突出显示前200列
+
+
+
+" 如果行尾有多余的空格（包括 Tab 键），该配置将让这些空格显示成可见的小方块
+set listchars=tab:»■,trail:■
+set list
+
+
+" 底部操作指令按下 Tab 键自动补全
+" 第一次按下 Tab，会显示所有匹配的操作指令的清单；第二次按下 Tab，会依次选择各个指令
+set wildmenu
+set wildmode=longest:list,full
+
+
+
+" ----------------------- Other Setting End ！----------------------------------
+
+
